@@ -1,0 +1,29 @@
+{
+  "name": "fairshare-contract",
+  "version": "1.0.0",
+  "description": "FairShare - Decentralized Expense Sharing on Massa",
+  "scripts": {
+    "build": "asc assembly/contracts/main.ts --target release --outFile build/main.wasm --optimize --optimizeLevel 3 --runtime stub",
+    "test": "asp --verbose",
+    "deploy": "npm run build && tsx deploy.ts",
+    "init": "tsx init.ts"
+  },
+  "devDependencies": {
+    "@assemblyscript/loader": "^0.27.5",
+    "@massalabs/massa-web3": "5.2.1-dev.20250804095426",
+    "assemblyscript": "^0.27.5",
+    "dotenv": "^17.2.3",
+    "tsx": "^4.20.6"
+  },
+  "dependencies": {
+    "@massalabs/as-types": "^2.1.0",
+    "@massalabs/massa-as-sdk": "^3.0.2",
+    "as-base64": "^0.2.0",
+    "as-bignum": "^0.2.11"
+  },
+  "pnpm": {
+    "overrides": {
+      "@massalabs/massa-web3": "5.2.1-dev.20250804095426"
+    }
+  }
+}
