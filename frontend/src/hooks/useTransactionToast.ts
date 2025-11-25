@@ -1,17 +1,30 @@
-import { toast } from 'sonner'
+import toast from 'react-hot-toast'
 
 /**
  * Hook for displaying transaction-related toast notifications
  */
 export const useTransactionToast = () => {
   /**
+   * Helper to format message with optional description
+   */
+  const formatMessage = (message: string, description?: string) => {
+    return description ? `${message}\n${description}` : message
+  }
+
+  /**
    * Show a loading toast for a pending transaction
    * @returns toastId to update/dismiss later
    */
-  const showPending = (message: string = 'Transaction pending...') => {
-    return toast.loading(message, {
-      description: 'Please confirm in your wallet',
-    })
+  const showPending = (message: string = 'Processing transaction...') => {
+    return toast.loading(
+      formatMessage(message, 'Confirm this action in your wallet'),
+      {
+        duration: Infinity,
+        style: {
+          whiteSpace: 'pre-line',
+        },
+      }
+    )
   }
 
   /**
@@ -22,17 +35,19 @@ export const useTransactionToast = () => {
     description?: string,
     toastId?: string | number
   ) => {
+    const options = {
+      id: toastId as string,
+      duration: 5000,
+      style: {
+        whiteSpace: 'pre-line' as const,
+      },
+    }
+
     if (toastId) {
-      toast.success(message, {
-        id: toastId,
-        description,
-        duration: 5000,
-      })
+      toast.success(formatMessage(message, description), options)
     } else {
-      toast.success(message, {
-        description,
-        duration: 5000,
-      })
+      const { id, ...optionsWithoutId } = options
+      toast.success(formatMessage(message, description), optionsWithoutId)
     }
   }
 
@@ -45,19 +60,21 @@ export const useTransactionToast = () => {
     toastId?: string | number
   ) => {
     const description =
-      error instanceof Error ? error.message : 'Please try again'
+      error instanceof Error ? error.message : 'Retry the operation'
+
+    const options = {
+      id: toastId as string,
+      duration: 7000,
+      style: {
+        whiteSpace: 'pre-line' as const,
+      },
+    }
 
     if (toastId) {
-      toast.error(message, {
-        id: toastId,
-        description,
-        duration: 7000,
-      })
+      toast.error(formatMessage(message, description), options)
     } else {
-      toast.error(message, {
-        description,
-        duration: 7000,
-      })
+      const { id, ...optionsWithoutId } = options
+      toast.error(formatMessage(message, description), optionsWithoutId)
     }
   }
 
@@ -69,17 +86,20 @@ export const useTransactionToast = () => {
     description?: string,
     toastId?: string | number
   ) => {
+    const options = {
+      id: toastId as string,
+      duration: 4000,
+      icon: 'ℹ️',
+      style: {
+        whiteSpace: 'pre-line' as const,
+      },
+    }
+
     if (toastId) {
-      toast.info(message, {
-        id: toastId,
-        description,
-        duration: 4000,
-      })
+      toast(formatMessage(message, description), options)
     } else {
-      toast.info(message, {
-        description,
-        duration: 4000,
-      })
+      const { id, ...optionsWithoutId } = options
+      toast(formatMessage(message, description), optionsWithoutId)
     }
   }
 
@@ -92,9 +112,11 @@ export const useTransactionToast = () => {
     toastId?: string | number
   ) => {
     if (toastId) {
-      toast.loading(message, {
-        id: toastId,
-        description,
+      toast.loading(formatMessage(message, description), {
+        id: toastId as string,
+        style: {
+          whiteSpace: 'pre-line',
+        },
       })
     }
   }
@@ -103,9 +125,12 @@ export const useTransactionToast = () => {
    * Show a warning toast
    */
   const showWarning = (message: string, description?: string) => {
-    toast.warning(message, {
-      description,
+    toast(formatMessage(message, description), {
       duration: 5000,
+      icon: '⚠️',
+      style: {
+        whiteSpace: 'pre-line',
+      },
     })
   }
 

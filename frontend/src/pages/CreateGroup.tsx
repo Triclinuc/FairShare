@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useWallet } from "../contexts/WalletContext";
 import { useFairShare } from "../hooks/useFairShare";
-import { toast } from "sonner";
+import toast from "react-hot-toast";
 
 export default function CreateGroup() {
   const navigate = useNavigate();
@@ -42,12 +42,12 @@ export default function CreateGroup() {
     e.preventDefault();
 
     if (!isConnected) {
-      toast.error("Please connect your wallet first");
+      toast.error("Wallet connection required");
       return;
     }
 
     if (!formData.name.trim()) {
-      toast.error("Please enter a group name");
+      toast.error("Group name cannot be empty");
       return;
     }
 

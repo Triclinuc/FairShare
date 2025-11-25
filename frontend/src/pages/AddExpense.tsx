@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { useWallet } from "../contexts/WalletContext";
 import { useFairShare } from "../hooks/useFairShare";
-import { toast } from "sonner";
+import toast from "react-hot-toast";
 import { ExpenseCategory, categoryLabels } from "../types/contract";
 
 export default function AddExpense() {
@@ -23,23 +23,23 @@ export default function AddExpense() {
     e.preventDefault();
 
     if (!isConnected) {
-      toast.error("Please connect your wallet first");
+      toast.error("Wallet connection required");
       return;
     }
 
     if (!groupId) {
-      toast.error("Group ID is missing");
+      toast.error("No group ID provided");
       return;
     }
 
     if (!formData.description.trim()) {
-      toast.error("Please enter a description");
+      toast.error("Description is required");
       return;
     }
 
     const amount = parseFloat(formData.amount);
     if (isNaN(amount) || amount <= 0) {
-      toast.error("Please enter a valid amount");
+      toast.error("Amount must be a valid number");
       return;
     }
 

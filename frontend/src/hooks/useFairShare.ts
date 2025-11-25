@@ -378,7 +378,7 @@ export const useFairShare = () => {
         throw new Error("Wallet not connected");
       }
 
-      const toastId = toast.showPending("Creating group...");
+      const toastId = toast.showPending("Preparing group creation...");
 
       try {
         const args = new Args()
@@ -405,8 +405,8 @@ export const useFairShare = () => {
         console.log("Create group transaction submitted:", operation.id);
 
         toast.updatePending(
-          "Transaction submitted!",
-          "Waiting for blockchain confirmation...",
+          "Blockchain transaction sent!",
+          "Confirming on blockchain...",
           toastId
         );
 
@@ -439,8 +439,8 @@ export const useFairShare = () => {
         }
 
         toast.showSuccess(
-          "Group created!",
-          "Your expense sharing group is ready",
+          "Group successfully established!",
+          "Your group is now active",
           toastId
         );
 
@@ -452,7 +452,7 @@ export const useFairShare = () => {
         };
       } catch (error) {
         console.error("Error creating group:", error);
-        toast.showError("Failed to create group", error, toastId);
+        toast.showError("Unable to create group", error, toastId);
         throw error;
       }
     },
@@ -474,7 +474,7 @@ export const useFairShare = () => {
         throw new Error("Wallet not connected");
       }
 
-      const toastId = toast.showPending("Adding expense...");
+      const toastId = toast.showPending("Submitting expense...");
 
       try {
         const amountInNanoMAS = toNanoMAS(data.amount);
@@ -504,8 +504,8 @@ export const useFairShare = () => {
         console.log("Add expense transaction submitted:", operation.id);
 
         toast.updatePending(
-          "Transaction submitted!",
-          "Waiting for blockchain confirmation...",
+          "Blockchain transaction sent!",
+          "Confirming on blockchain...",
           toastId
         );
 
@@ -528,8 +528,8 @@ export const useFairShare = () => {
         }
 
         toast.showSuccess(
-          "Expense added!",
-          "The expense has been recorded",
+          "Expense recorded successfully!",
+          "Expense tracking updated",
           toastId
         );
 
@@ -540,7 +540,7 @@ export const useFairShare = () => {
         };
       } catch (error) {
         console.error("Error adding expense:", error);
-        toast.showError("Failed to add expense", error, toastId);
+        toast.showError("Could not add expense", error, toastId);
         throw error;
       }
     },
@@ -556,7 +556,7 @@ export const useFairShare = () => {
         throw new Error("Wallet not connected");
       }
 
-      const toastId = toast.showPending("Deleting expense...");
+      const toastId = toast.showPending("Removing expense...");
 
       try {
         const args = new Args().addU64(BigInt(expenseId));
@@ -571,8 +571,8 @@ export const useFairShare = () => {
         });
 
         toast.updatePending(
-          "Transaction submitted!",
-          "Waiting for confirmation...",
+          "Blockchain transaction sent!",
+          "Confirming on blockchain...",
           toastId
         );
 
@@ -594,12 +594,12 @@ export const useFairShare = () => {
           throw new Error("Delete expense failed on blockchain");
         }
 
-        toast.showSuccess("Expense deleted!", undefined, toastId);
+        toast.showSuccess("Expense removed successfully!", undefined, toastId);
 
         return { success: true, operationId: operation.id };
       } catch (error) {
         console.error("Error deleting expense:", error);
-        toast.showError("Failed to delete expense", error, toastId);
+        toast.showError("Could not remove expense", error, toastId);
         throw error;
       }
     },
@@ -615,7 +615,7 @@ export const useFairShare = () => {
         throw new Error("Wallet not connected");
       }
 
-      const toastId = toast.showPending("Settling debt...");
+      const toastId = toast.showPending("Processing payment...");
 
       try {
         const amountInNanoMAS = toNanoMAS(amount);
@@ -633,8 +633,8 @@ export const useFairShare = () => {
         });
 
         toast.updatePending(
-          "Transaction submitted!",
-          "Waiting for confirmation...",
+          "Blockchain transaction sent!",
+          "Confirming on blockchain...",
           toastId
         );
 
@@ -657,15 +657,15 @@ export const useFairShare = () => {
         }
 
         toast.showSuccess(
-          "Debt settled!",
-          "Payment has been sent successfully",
+          "Payment completed successfully!",
+          "Transaction verified on chain",
           toastId
         );
 
         return { success: true, operationId: operation.id };
       } catch (error) {
         console.error("Error settling debt:", error);
-        toast.showError("Failed to settle debt", error, toastId);
+        toast.showError("Payment could not be processed", error, toastId);
         throw error;
       }
     },
@@ -681,7 +681,7 @@ export const useFairShare = () => {
         throw new Error("Wallet not connected");
       }
 
-      const toastId = toast.showPending("Adding member...");
+      const toastId = toast.showPending("Including new member...");
 
       try {
         const args = new Args()
@@ -698,8 +698,8 @@ export const useFairShare = () => {
         });
 
         toast.updatePending(
-          "Transaction submitted!",
-          "Waiting for confirmation...",
+          "Blockchain transaction sent!",
+          "Confirming on blockchain...",
           toastId
         );
 
@@ -721,12 +721,12 @@ export const useFairShare = () => {
           throw new Error("Add member failed on blockchain");
         }
 
-        toast.showSuccess("Member added!", undefined, toastId);
+        toast.showSuccess("Member joined the group!", undefined, toastId);
 
         return { success: true, operationId: operation.id };
       } catch (error) {
         console.error("Error adding member:", error);
-        toast.showError("Failed to add member", error, toastId);
+        toast.showError("Unable to add member", error, toastId);
         throw error;
       }
     },
@@ -742,7 +742,7 @@ export const useFairShare = () => {
         throw new Error("Wallet not connected");
       }
 
-      const toastId = toast.showPending("Leaving group...");
+      const toastId = toast.showPending("Exiting group...");
 
       try {
         const args = new Args().addU64(BigInt(groupId));
@@ -757,8 +757,8 @@ export const useFairShare = () => {
         });
 
         toast.updatePending(
-          "Transaction submitted!",
-          "Waiting for confirmation...",
+          "Blockchain transaction sent!",
+          "Confirming on blockchain...",
           toastId
         );
 
@@ -780,12 +780,12 @@ export const useFairShare = () => {
           throw new Error("Leave group failed on blockchain");
         }
 
-        toast.showSuccess("Left group successfully!", undefined, toastId);
+        toast.showSuccess("You have exited the group!", undefined, toastId);
 
         return { success: true, operationId: operation.id };
       } catch (error) {
         console.error("Error leaving group:", error);
-        toast.showError("Failed to leave group", error, toastId);
+        toast.showError("Could not exit group", error, toastId);
         throw error;
       }
     },
@@ -801,7 +801,7 @@ export const useFairShare = () => {
         throw new Error("Wallet not connected");
       }
 
-      const toastId = toast.showPending("Closing group...");
+      const toastId = toast.showPending("Finalizing group...");
 
       try {
         const args = new Args().addU64(BigInt(groupId));
@@ -816,8 +816,8 @@ export const useFairShare = () => {
         });
 
         toast.updatePending(
-          "Transaction submitted!",
-          "Waiting for confirmation...",
+          "Blockchain transaction sent!",
+          "Confirming on blockchain...",
           toastId
         );
 
@@ -840,15 +840,15 @@ export const useFairShare = () => {
         }
 
         toast.showSuccess(
-          "Group closed!",
-          "Final balances have been calculated",
+          "Group has been finalized!",
+          "Settlement balances computed",
           toastId
         );
 
         return { success: true, operationId: operation.id };
       } catch (error) {
         console.error("Error closing group:", error);
-        toast.showError("Failed to close group", error, toastId);
+        toast.showError("Unable to finalize group", error, toastId);
         throw error;
       }
     },

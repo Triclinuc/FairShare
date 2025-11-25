@@ -2,7 +2,7 @@
 
 // Contract address - UPDATE THIS AFTER DEPLOYMENT
 export const CONTRACT_ADDRESS =
-  "AS1N3fQXEEkFafr58E9QVz2dkgcREE71ZxnWLpSmSh3bqrphrmAW";
+  "AS1th544os5w2Bp6NkmNQg1TqzGjSwZ7HLHSa9QSyHMyJkXTjFXe";
 
 // Network configuration
 export const NETWORK = {
